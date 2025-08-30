@@ -1,0 +1,9 @@
+function BadgePill({ theme, emoji, text, className = "" }) {
+  return (
+    <span className={`inline-block px-4 py-2 ${theme.bg} text-white rounded-full text-sm font-['Ranchers'] font-bold mb-6 ${className}`}>
+      {text}
+    </span>
+  )
+}
+
+export default BadgePill
