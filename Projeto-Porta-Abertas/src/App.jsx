@@ -72,7 +72,7 @@ function App() {
 							initial={{ opacity: 0, y: 20 }}
 							animate={{ opacity: 1, y: 0 }}
 							transition={{ delay: 0.6 }}
-							className="font-['Montserrat'] text-5xl md:text-9xl font-extrabold text-white mb-6">
+							className="font-['Montserrat'] text-7xl md:text-9xl font-extrabold text-white mb-6">
 							Crie Sua
 							<span className="bg-gradient-to-r from-purple-400 to-orange-400 bg-clip-text text-transparent">
 								{" "}
@@ -85,7 +85,7 @@ function App() {
 							initial={{ opacity: 0, y: 20 }}
 							animate={{ opacity: 1, y: 0 }}
 							transition={{ delay: 0.8 }}
-							className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+							className="text-lg md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
 							Dê vida às suas ideias e mostre sua criatividade no mundo digital.
 							Personalize cores, textos, animações e construa uma página única
 							que represente você, com o apoio da nossa equipe.
@@ -96,9 +96,9 @@ function App() {
 							initial={{ opacity: 0, y: 20 }}
 							animate={{ opacity: 1, y: 0 }}
 							transition={{ delay: 1 }}
-							className="flex flex-col sm:flex-row items-center justify-center gap-8 text-center mt-12">
+							className="flex flex-row items-center justify-center gap-8 text-center mt-12">
 							<div className="flex items-center gap-3">
-								<div className="w-12 h-12 bg-purple-600/20 rounded-full flex items-center justify-center">
+								<div className="hidden sm:flex w-12 h-12 bg-purple-600/20 rounded-full flex items-center justify-center">
 									<Grid3X3 className="w-6 h-6 text-purple-400" />
 								</div>
 								<div>
@@ -109,7 +109,7 @@ function App() {
 								</div>
 							</div>
 							<div className="flex items-center gap-3">
-								<div className="w-12 h-12 bg-orange-600/20 rounded-full flex items-center justify-center">
+								<div className=" hidden sm:flex w-12 h-12 bg-orange-600/20 rounded-full flex items-center justify-center">
 									<Sparkles className="w-6 h-6 text-orange-400" />
 								</div>
 								<div>
@@ -124,13 +124,13 @@ function App() {
 							initial={{ opacity: 0, y: 20 }}
 							animate={{ opacity: 1, y: 0 }}
 							transition={{ delay: 1.2 }}
-							className="flex flex-col sm:flex-row gap-4 justify-center mt-12">
+							className="flex flex-row gap-4 justify-center mt-12">
 							{pages.length > 0 && (
 								<Button
 									onClick={() => setCurrentView("gallery")}
 									size="lg"
 									variant="outline"
-									className="border-orange-400 text-orange-400 hover:bg-orange-400 hover:text-white hover:border-orange-400 px-8 py-4 text-lg cursor-pointer">
+									className="border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white hover:border-purple-600 px-8 py-4 text-lg cursor-pointer">
 									<Grid3X3 className="w-5 h-5 mr-2" />
 									Ver Galeria ({pages.length})
 								</Button>
