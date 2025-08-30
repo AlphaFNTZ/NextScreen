@@ -6,6 +6,7 @@ import { jsxLocPlugin } from "@builder.io/vite-plugin-jsx-loc";
 
 // https://vite.dev/config/
 export default defineConfig({
+	base: "/NextScreen/",
 	plugins: [react(), tailwindcss(), jsxLocPlugin()],
 	resolve: {
 		alias: {
