@@ -3,21 +3,26 @@ import { motion } from "framer-motion";
 import { Card, CardContent } from "./ui/card";
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
-import { User, Calendar, Eye, Sparkles, Grid3X3, List } from "lucide-react";
+import { User, Eye, Grid3X3, List, Clock } from "lucide-react";
 
-const PageGallery = ({ pages, onViewPage, onCreateNew }) => {
+const PageGallery = ({ pages, onViewPage }) => {
 	const [viewMode, setViewMode] = useState("grid"); // 'grid' ou 'list'
 	const [sortBy, setSortBy] = useState("newest"); // 'newest', 'oldest', 'alphabetical'
 
 	const sortedPages = [...pages].sort((a, b) => {
+		const timeToMinutes = (time) => {
+			const [h, m] = time.split(":").map(Number);
+			return h * 60 + m; // converte para minutos
+		};
+
 		switch (sortBy) {
 			case "oldest":
-				return new Date(a.createdAt) - new Date(b.createdAt);
+				return timeToMinutes(a.createdAt) - timeToMinutes(b.createdAt);
 			case "alphabetical":
 				return a.title.localeCompare(b.title);
 			case "newest":
 			default:
-				return new Date(b.createdAt) - new Date(a.createdAt);
+				return timeToMinutes(b.createdAt) - timeToMinutes(a.createdAt);
 		}
 	});
 
@@ -99,10 +104,8 @@ const PageGallery = ({ pages, onViewPage, onCreateNew }) => {
 									</span>
 								</div>
 								<div className="flex items-center gap-1">
-									<Calendar className="w-3 h-3" />
-									<span>
-										{new Date(page.createdAt).toLocaleDateString("pt-BR")}
-									</span>
+									<Clock className="w-3 h-3" />
+									<span>{page.createdAt}</span>
 								</div>
 							</div>
 
@@ -145,12 +148,6 @@ const PageGallery = ({ pages, onViewPage, onCreateNew }) => {
 					<p className="text-gray-400 mb-6">
 						Seja o primeiro a criar uma minipágina personalizada!
 					</p>
-					<Button
-						onClick={onCreateNew}
-						className="bg-gradient-to-r from-purple-600 to-orange-500 hover:from-purple-700 hover:to-orange-600 text-white">
-						<Sparkles className="w-4 h-4 mr-2" />
-						Criar Primeira Página
-					</Button>
 				</motion.div>
 			</div>
 		);
@@ -202,14 +199,6 @@ const PageGallery = ({ pages, onViewPage, onCreateNew }) => {
 							<List className="w-4 h-4" />
 						</button>
 					</div>
-
-					{/* Botão criar nova */}
-					<Button
-						onClick={onCreateNew}
-						className="bg-purple-600 hover:bg-purple-500 text-white cursor-pointer">
-						<Sparkles className="w-4 h-4 mr-2" />
-						Nova Página
-					</Button>
 				</div>
 			</div>
 

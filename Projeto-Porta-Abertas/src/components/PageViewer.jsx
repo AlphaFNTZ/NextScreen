@@ -15,6 +15,21 @@ const PageViewer = ({ page, onBack }) => {
 		return () => clearTimeout(timer);
 	}, []);
 
+	if (page.component) {
+		const PageComponent = page.component;
+		return (
+			<div className="min-h-screen w-full relative">
+				{/* Renderizar o componente da página */}
+				<motion.div
+					initial={{ opacity: 0 }}
+					animate={{ opacity: 1 }}
+					transition={{ duration: 0.5 }}>
+					<PageComponent />
+				</motion.div>
+			</div>
+		);
+	}
+
 	const getAnimationVariants = () => {
 		switch (page.animation) {
 			case "fade-in":

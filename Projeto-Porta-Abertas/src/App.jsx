@@ -1,24 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import PageCreator from "./components/PageCreator";
 import PageGallery from "./components/PageGallery";
 import PageViewer from "./components/PageViewer";
-import { useLocalStorage } from "./hooks/useLocalStorage";
+import { loadUserPages } from "./utils/pageLoader";
 import { Button } from "./components/ui/button";
 import { Sparkles, Home, Plus, Grid3X3, ArrowLeft } from "lucide-react";
 import "./style/GlobalStyle.css";
 import Logo from "./assets/logo_empresa.png";
-import LogoNome from "./assets/logo_empresa_nome.png";
 
 function App() {
-	const [pages, setPages] = useLocalStorage("emakers-pages", []);
+	const [pages, setPages] = useState([]);
 	const [currentView, setCurrentView] = useState("home");
 	const [selectedPage, setSelectedPage] = useState(null);
 
-	const handleSavePage = (newPage) => {
-		setPages((prev) => [...prev, newPage]);
-		setCurrentView("gallery");
-	};
+	useEffect(() => {
+		const userPages = loadUserPages();
+		setPages(userPages);
+	}, []);
 
 	const handleViewPage = (page) => {
 		setSelectedPage(page);
@@ -67,16 +65,14 @@ function App() {
 							initial={{ scale: 0 }}
 							animate={{ scale: 1 }}
 							transition={{ delay: 0.4, type: "spring", bounce: 0.6 }}
-							className="text-8xl mb-8">
-							🎨
-						</motion.div>
+							className="text-8xl mb-8"></motion.div>
 
 						{/* Título principal */}
 						<motion.h1
 							initial={{ opacity: 0, y: 20 }}
 							animate={{ opacity: 1, y: 0 }}
 							transition={{ delay: 0.6 }}
-							className="text-5xl md:text-7xl font-bold text-white mb-6">
+							className="font-['Montserrat'] text-5xl md:text-9xl font-extrabold text-white mb-6">
 							Crie Sua
 							<span className="bg-gradient-to-r from-purple-400 to-orange-400 bg-clip-text text-transparent">
 								{" "}
@@ -90,9 +86,9 @@ function App() {
 							animate={{ opacity: 1, y: 0 }}
 							transition={{ delay: 0.8 }}
 							className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-							Expresse sua criatividade e visão sobre tecnologia. Personalize
-							cores, textos, animações e crie uma página única que representa
-							você.
+							Dê vida às suas ideias e mostre sua criatividade no mundo digital.
+							Personalize cores, textos, animações e construa uma página única
+							que represente você, com o apoio da nossa equipe.
 						</motion.p>
 
 						{/* Estatísticas */}
@@ -129,14 +125,6 @@ function App() {
 							animate={{ opacity: 1, y: 0 }}
 							transition={{ delay: 1.2 }}
 							className="flex flex-col sm:flex-row gap-4 justify-center mt-12">
-							<Button
-								onClick={() => setCurrentView("create")}
-								size="lg"
-								className="bg-purple-800 hover:bg-purple-700 text-white font-semibold px-8 py-4 text-lg cursor-pointer">
-								<Plus className="w-5 h-5 mr-2" />
-								Criar Minipágina
-							</Button>
-
 							{pages.length > 0 && (
 								<Button
 									onClick={() => setCurrentView("gallery")}
@@ -240,20 +228,6 @@ function App() {
 					</motion.div>
 				)}
 
-				{currentView === "create" && (
-					<motion.div
-						key="create"
-						initial={{ opacity: 0, y: 20 }}
-						animate={{ opacity: 1, y: 0 }}
-						exit={{ opacity: 0, y: -20 }}
-						transition={{ duration: 0.3 }}
-						className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 p-6 pt-20">
-						<div className="max-w-4xl mx-auto">
-							<PageCreator onSavePage={handleSavePage} />
-						</div>
-					</motion.div>
-				)}
-
 				{currentView === "gallery" && (
 					<motion.div
 						key="gallery"
@@ -263,11 +237,7 @@ function App() {
 						transition={{ duration: 0.3 }}
 						className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 p-6 pt-20">
 						<div className="max-w-7xl mx-auto">
-							<PageGallery
-								pages={pages}
-								onViewPage={handleViewPage}
-								onCreateNew={() => setCurrentView("create")}
-							/>
+							<PageGallery pages={pages} onViewPage={handleViewPage} />
 						</div>
 					</motion.div>
 				)}
