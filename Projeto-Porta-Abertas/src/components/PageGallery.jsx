@@ -92,7 +92,7 @@ const PageGallery = ({ pages, onViewPage }) => {
 						<div className="text-center">
 							<div className="text-3xl mb-2">
 								<img
-									src={`https://api.dicebear.com/9.x/big-smile/svg?seed=${page.authorName}`}
+									src={`https://api.dicebear.com/9.x/bottts/svg?seed=${page.authorName}`}
 									className="w-12 h-12 sm:w-16 sm:h-16 rounded-full mx-auto"
 									alt="avatar"
 								/>
@@ -115,7 +115,7 @@ const PageGallery = ({ pages, onViewPage }) => {
 						</div>
 					</div>
 
-					<CardContent className="p-4">
+					<CardContent className="p-1.5">
 						<div className="space-y-3">
 							{/* Título e texto preview */}
 							<div>

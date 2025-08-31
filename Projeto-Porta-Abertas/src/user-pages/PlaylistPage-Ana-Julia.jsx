@@ -10,20 +10,20 @@ import { Clapperboard, User, Film } from "lucide-react";
 //
 export const pageMeta = {
 	// Título da cena ou do filme
-	title: "Kung Fu Panda",
+	title: "Elementos",
 	// Uma linha de diálogo ou descrição da cena
-	text: "O ontem é passado. O amanhã é um mistério, já o hoje é uma dádiva, por isso se chama presente.",
+	text: "Eu achei o filme muito legal, pois fala sobre uma paixão entre a água e o fogo.",
 	// Palavra-chave para o VÍDEO de fundo
-	videoQuery: "japan montains temple",
+	videoQuery: "florest",
 	// Nome do "diretor" (o usuário)
-	directorName: "Roberta",
+	authorName: "Ana Julia",
 	// Gênero do filme para dar um toque extra
 	genre: "Desenho",
 	// Cor principal para detalhes e legendas
-	primaryColor: "#7e25eb", // Um azul elétrico
+	primaryColor: "#58a00a", // Um azul elétrico
 	// Fundo da página (será sobreposto pelo vídeo)
 	backgroundColor: "#000000",
-	createdAt: "22:30",
+	createdAt: "13:06",
 	template: "PlaylistPage",
 };
 //
@@ -160,7 +160,7 @@ const MovieScenePage = () => {
 				<div className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm text-white/80">
 					<Clapperboard className="w-4 h-4 sm:w-5 sm:h-5" />
 					<span>
-						Dirigido por <strong>{pageMeta.directorName}</strong>
+						Dirigido por <strong>{pageMeta.authorName}</strong>
 					</span>
 				</div>
 			</motion.div>

@@ -22,7 +22,7 @@ export const pageMeta = {
 	// Defina o seu nome
 	title: "Juliano C. F. Ramos",
 	// Defina o seu primeiro nome
-	authorName: "Juliano",
+	authorName: "Juliano Cesar",
 	// Defina o ícone da página
 	icon: "👨‍💻",
 	// Defina um pequeno texto de apresentação
@@ -117,8 +117,8 @@ const PortfolioPage = () => {
 					className="text-center mb-5">
 					<div className="w-24 h-24 sm:w-32 sm:h-32 bg-purple-800 rounded-full mx-auto mb-4 sm:mb-6 flex items-center justify-center text-5xl sm:text-6xl overflow-hidden">
 						<img
-							src={`https://api.dicebear.com/9.x/big-smile/svg?seed=${pageMeta.authorName}`}
-							className="w-full h-full object-cover"
+							src={`https://api.dicebear.com/9.x/bottts/svg?seed=${pageMeta.authorName}`}
+							className="w-3/4 h-3/4 object-cover"
 							alt="avatar"
 						/>
 					</div>

@@ -12,7 +12,7 @@ export const pageMeta = {
 	// Defina o titulo da pagina
 	title: "A verdadeira Capoeira",
 	// Defina o seu primeiro nome
-	authorName: "Julio",
+	authorName: "Julio Cesar",
 	// Defina o ícone da página
 	icon: "brasil",
 	// Defina o texto da pagina
