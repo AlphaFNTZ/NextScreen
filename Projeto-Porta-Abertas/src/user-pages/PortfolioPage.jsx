@@ -19,29 +19,30 @@ import {
 //
 //
 export const pageMeta = {
-	// Defina o autor da pagina
-	authorName: "Juliano Cesar",
+	// Defina o seu nome
+	title: "Juliano C. F. Ramos",
+	// Defina o seu primeiro nome
+	authorName: "Juliano",
 	// Defina o ícone da página
 	icon: "👨‍💻",
-	// Defina o seu nome
-	title: "Juliano Cesar",
 	// Defina um pequeno texto de apresentação
 	text: "Desenvolvedor Full Stack apaixonado por criar soluções web e mobile modernas.",
 	// Defina o seu nickname do GitHub
 	github: "AlphaFNTZ",
 	// Defina o seu @ do Instagram
 	instagram: "cesarx_0",
-	// Defina a animação desejada [fade-in, slide-up, bounce, typewriter]
-	animation: "fade-in",
-	// Defina o tipo de fundo da página [gradient, color]
+	// Defina a animação desejada [fade-in; slide-up; bounce]
+	animation: "bounce",
+	// Defina o tipo de fundo da página [gradient; color]
 	backgroundType: "color",
-	// Defina o valor do fundo da página
+	// Defina o valor do fundo da página [#3f215d; linear-gradient(135deg, #667eea 0%, #764ba2 100%)]
 	backgroundValue: "#3f215d",
-	// Defina a cor da escrita
+	// Defina a cor do titulo [#ffffff]
 	primaryColor: "#ffffff",
-	// Defina as habilidades da página [JavaScript, React, Node.js, Python, MongoDB, PostgreSQL, Docker, AWS]
+	// Defina as suas habilidades [JavaScript; React; Node.js; Python; MongoDB; PostgreSQL; Docker; AWS]
 	skills: ["JavaScript", "React", "Node.js"],
 	createdAt: "23:45",
+	template: "PortfolioPage",
 };
 //
 //
@@ -78,7 +79,7 @@ const PortfolioPage = () => {
 				};
 			case "slide-up":
 				return {
-					hidden: { opacity: 0, y: 50 },
+					hidden: { opacity: 0, y: 200 },
 					visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
 				};
 			case "bounce":
@@ -115,7 +116,10 @@ const PortfolioPage = () => {
 					animate={showContent ? "visible" : "hidden"}
 					className="text-center mb-5">
 					<div className="w-32 h-32 bg-purple-800 rounded-full mx-auto mb-6 flex items-center justify-center text-6xl">
-						{pageMeta.icon}
+						<img
+							src={`https://api.dicebear.com/9.x/big-smile/svg?seed=${pageMeta.authorName}`}
+							alt="avatar"
+						/>
 					</div>
 					<h1
 						className="text-5xl font-bold mb-4"

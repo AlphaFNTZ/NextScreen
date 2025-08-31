@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { User, Clock } from "lucide-react";
 //
@@ -9,23 +9,25 @@ import { User, Clock } from "lucide-react";
 //
 //
 export const pageMeta = {
-	// Defina o autor da pagina
-	authorName: "Juliano Cesar",
-	// Defina o icone da pagina
-	icon: "💜",
 	// Defina o titulo da pagina
-	title: "A Emakers Jr. é a melhor!",
+	title: "A verdadeira Capoeira",
+	// Defina o seu primeiro nome
+	authorName: "Julio",
+	// Defina o ícone da página
+	icon: "brasil",
 	// Defina o texto da pagina
-	text: "Me tornar membro dessa empresa junior me trouxe tantas oportunidades e apredizados que talvez eu nunca teria em outro lugar.",
-	// Defina a animação desejada [fade-in, slide-up, bounce, typewriter]
+	text: "A capoeira é uma arte marcial brasileira, originada na cidade de Rio de Janeiro no tempo da escravidão, no seculo XXI, com o objetivo de combater o medo de ser atacado, usado como uma forma de expressão artística.",
+	// Defina a animação desejada [fade-in; slide-up; bounce; typewriter]
 	animation: "slide-up",
-	// Defina o tipo de fundo da pagina [gradient, color]
-	backgroundType: "gradient",
-	// Defina o valor do fundo da pagina
-	backgroundValue: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-	// Defina a cor da escrita
-	primaryColor: "#ffffff",
-	createdAt: "00:10",
+	// Defina o tipo de fundo da pagina [gradient; color]
+	backgroundType: "color",
+	// Defina o valor do fundo da página [#3f215d; linear-gradient(135deg, #667eea 0%, #764ba2 100%)]
+	backgroundValue: "#001443",
+	// Defina a cor do titulo [#ffffff]
+	primaryColor: "#0022ff",
+	// Defina a horas em que foi criada a sua pagina
+	createdAt: "18:40",
+	template: "MessagePage",
 };
 //
 //
@@ -36,12 +38,73 @@ export const pageMeta = {
 //
 const MessagePage = () => {
 	const [showContent, setShowContent] = useState(false);
+	const [imageUrl, setImageUrl] = useState("");
+	const [isLoading, setIsLoading] = useState(true);
+
 	useEffect(() => {
-		const timer = setTimeout(() => {
-			setShowContent(true);
-		}, 300);
-		return () => clearTimeout(timer);
-	}, []);
+		const loadImage = async () => {
+			// 1. Crie uma chave única para o cache baseada no tema.
+			const cacheKey = `unsplash_image_${pageMeta.icon}`;
+
+			try {
+				// 2. Verifique se a imagem já está no localStorage.
+				const cachedImageUrl = localStorage.getItem(cacheKey);
+
+				if (cachedImageUrl) {
+					// 3. CACHE HIT: Se encontrou, use a imagem do cache e pronto!
+					console.log("Imagem carregada do cache!");
+					setImageUrl(cachedImageUrl);
+					setIsLoading(false);
+					return; // Encerra a função aqui, sem chamar a API.
+				}
+
+				// 4. CACHE MISS: Se não encontrou, continue para buscar na API.
+				console.log("Cache miss. Buscando imagem na API...");
+				const response = await fetch(
+					`https://api.unsplash.com/photos/random?query=${pageMeta.icon}&client_id=hrW66a42K_qj8Cq7R3CaKrw5mesHDINV5pGHxkvyAkk`
+				);
+
+				if (!response.ok) {
+					throw new Error(`Erro na API: ${response.statusText}`);
+				}
+
+				const data = await response.json();
+
+				if (data && data.urls && data.urls.regular) {
+					const newImageUrl = data.urls.regular;
+					setImageUrl(newImageUrl);
+
+					// 5. SALVAR NO CACHE: Guarde a nova URL no localStorage para o futuro.
+					localStorage.setItem(cacheKey, newImageUrl);
+					console.log("Imagem salva no cache.");
+				} else {
+					console.warn("API não retornou uma imagem válida.");
+					// Aqui você pode definir uma imagem de fallback se quiser
+				}
+			} catch (error) {
+				console.error("Falha ao carregar imagem:", error);
+				// Lógica de fallback em caso de erro de rede
+			} finally {
+				// Garante que o loading termine, independentemente do resultado.
+				setIsLoading(false);
+			}
+		};
+
+		loadImage();
+	}, [pageMeta.icon]);
+
+	useEffect(() => {
+		if (!isLoading) {
+			const timer = setTimeout(() => {
+				setShowContent(true);
+			}, 300);
+			return () => clearTimeout(timer);
+		}
+	}, [isLoading]);
+
+	if (isLoading) {
+		return <div>Carregando imagem...</div>;
+	}
 
 	const getAnimationVariants = () => {
 		switch (pageMeta.animation) {
@@ -52,7 +115,7 @@ const MessagePage = () => {
 				};
 			case "slide-up":
 				return {
-					hidden: { opacity: 0, y: 50 },
+					hidden: { opacity: 0, y: 200 },
 					visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
 				};
 			case "bounce":
@@ -127,21 +190,39 @@ const MessagePage = () => {
 			className="min-h-screen w-full flex flex-col relative overflow-hidden"
 			style={backgroundStyle}>
 			{/* Conteúdo principal */}
-			<div className="flex-1 flex flex-col items-center justify-center p-8 text-center">
+			<div className="flex-1 flex flex-col items-center justify-center p-4 sm:p-8 text-center">
+				{" "}
+				{/* Ajuste no padding para mobile */}
 				<motion.div
 					variants={getAnimationVariants()}
 					initial="hidden"
 					animate={showContent ? "visible" : "hidden"}
-					className="max-w-4xl mx-auto space-y-8">
-					{/* Ícone */}
+					className="max-w-4xl w-full mx-auto space-y-8">
+					{" "}
+					{/* Adicionado w-full */}
+					{/* Imagem (Ícone) */}
 					<motion.div
-						className="text-8xl md:text-9xl mb-6"
+						className="w-full max-w-lg mx-auto" // Limita a largura máxima da imagem em telas grandes
 						initial={{ scale: 0 }}
 						animate={{ scale: 1 }}
 						transition={{ delay: 0.2, type: "spring", bounce: 0.6 }}>
-						{pageMeta.icon}
+						{/* A mágica acontece aqui! */}
+						<div
+							className="
+                    w-full 
+                    h-40 md:h-48              {/* Altura responsiva: 40 no mobile, 48 em telas maiores */}
+                    bg-gray-700               {/* Fundo um pouco mais escuro para o placeholder */}
+                    rounded-2xl               {/* Bordas bem arredondadas */}
+                    overflow-hidden           {/* Essencial para cortar a imagem nas bordas */}
+                    shadow-lg                 {/* Sombra sutil para dar profundidade */}
+                ">
+							<img
+								src={imageUrl}
+								className="w-full h-full object-cover" // object-cover garante que a imagem preencha o espaço sem distorcer
+								alt={`Imagem sobre ${pageMeta.icon}`}
+							/>
+						</div>
 					</motion.div>
-
 					{/* Título */}
 					<motion.h1
 						className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6"
@@ -149,30 +230,24 @@ const MessagePage = () => {
 						initial={{ opacity: 0, y: 20 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ delay: 0.4 }}>
-						{pageMeta.animation === "typewriter" ? (
-							<TypewriterText text={pageMeta.title} delay={500} speed={80} />
-						) : (
-							pageMeta.title
-						)}
+						{pageMeta.title}
 					</motion.h1>
-
 					{/* Texto principal */}
 					<motion.div
-						className="text-xl md:text-2xl lg:text-3xl text-white/90 leading-relaxed max-w-3xl mx-auto"
+						className="text-xl md:text-2xl text-white/90 leading-relaxed max-w-3xl mx-auto"
 						initial={{ opacity: 0, y: 20 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ delay: 0.6 }}>
 						{pageMeta.animation === "typewriter" ? (
 							<TypewriterText
 								text={pageMeta.text}
-								delay={pageMeta.title.length * 80 + 300} // sincroniza com o fim do título
+								delay={pageMeta.title.length * 80 + 300}
 								speed={50}
 							/>
 						) : (
 							pageMeta.text
 						)}
 					</motion.div>
-
 					{/* Informações do autor */}
 					<motion.div
 						className="flex flex-col sm:flex-row items-center justify-center gap-4 text-white/70 text-lg mt-12"

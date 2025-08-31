@@ -3,11 +3,35 @@ import { motion } from "framer-motion";
 import { Card, CardContent } from "./ui/card";
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
-import { User, Eye, Grid3X3, List, Clock } from "lucide-react";
+import {
+	User,
+	Eye,
+	Grid3X3,
+	List,
+	Clock,
+	MessageSquare,
+	Film,
+} from "lucide-react";
 
 const PageGallery = ({ pages, onViewPage }) => {
 	const [viewMode, setViewMode] = useState("grid"); // 'grid' ou 'list'
 	const [sortBy, setSortBy] = useState("newest"); // 'newest', 'oldest', 'alphabetical'
+
+	const getPageTypeInfo = (templateName) => {
+		switch (templateName) {
+			case "MessagePage":
+				return {
+					label: "Mensagem",
+					icon: <MessageSquare className="w-3 h-3" />,
+				};
+			case "PlaylistPage":
+				return { label: "Playlist", icon: <Film className="w-3 h-3" /> };
+			case "PortfolioPage":
+				return { label: "Portfólio", icon: <User className="w-3 h-3" /> };
+			default:
+				return { label: "Padrão", icon: <Grid3X3 className="w-3 h-3" /> };
+		}
+	};
 
 	const sortedPages = [...pages].sort((a, b) => {
 		const timeToMinutes = (time) => {
@@ -51,6 +75,8 @@ const PageGallery = ({ pages, onViewPage }) => {
 				? { background: page.backgroundValue }
 				: { backgroundColor: page.backgroundValue };
 
+		const pageType = getPageTypeInfo(page.template);
+
 		return (
 			<motion.div
 				variants={cardVariants}
@@ -64,12 +90,18 @@ const PageGallery = ({ pages, onViewPage }) => {
 						className="w-[100%] h-32 relative flex items-center justify-center self-center rounded-md"
 						style={backgroundStyle}>
 						<div className="text-center">
-							<div className="text-3xl mb-2">{page.icon}</div>
-							<div
+							<div className="text-3xl mb-2">
+								<img
+									src={`https://api.dicebear.com/9.x/big-smile/svg?seed=${page.authorName}`}
+									className="w-16 h-16 rounded-full mx-auto"
+									alt="avatar"
+								/>
+							</div>
+							{/* <div
 								className="text-sm font-semibold truncate px-2"
 								style={{ color: page.primaryColor }}>
 								{page.title}
-							</div>
+							</div> */}
 						</div>
 
 						{/* Overlay no hover */}
@@ -111,6 +143,12 @@ const PageGallery = ({ pages, onViewPage }) => {
 
 							{/* Tags de animação e background */}
 							<div className="flex gap-2 flex-wrap">
+								<Badge
+									variant="outline"
+									className="text-xs border-purple-500/50 text-purple-300 flex items-center gap-1.5">
+									{pageType.icon}
+									{pageType.label}
+								</Badge>
 								<Badge
 									variant="secondary"
 									className="text-xs bg-gray-800 text-gray-300">

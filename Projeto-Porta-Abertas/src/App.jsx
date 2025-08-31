@@ -33,7 +33,16 @@ function App() {
 	};
 
 	const HomeView = () => (
-		<div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 flex flex-col">
+		<motion.div
+			className="absolute inset-0 min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 flex flex-col"
+			animate={{
+				background: [
+					"linear-gradient(135deg, #34025c, #36204d)",
+					"linear-gradient(135deg, #650a89, #250a3f)",
+					"linear-gradient(135deg, #632775, #6615b3)",
+				],
+			}}
+			transition={{ duration: 10, repeat: Infinity, repeatType: "mirror" }}>
 			{/* Header */}
 			<header className="p-6">
 				<div className="max-w-6xl mx-auto">
@@ -46,7 +55,7 @@ function App() {
 						</div>
 						<div>
 							<h1 className="text-2xl font-bold text-white">Emakers Jr.</h1>
-							<p className="text-gray-300 text-sm">Criador de Minipáginas</p>
+							<p className="text-gray-300 text-sm">Soluções digitais</p>
 						</div>
 					</motion.div>
 				</div>
@@ -73,7 +82,7 @@ function App() {
 							animate={{ opacity: 1, y: 0 }}
 							transition={{ delay: 0.6 }}
 							className="font-['Montserrat'] text-7xl md:text-9xl font-extrabold text-white mb-6">
-							Crie Sua
+							Veja a sua
 							<span className="bg-gradient-to-r from-purple-400 to-orange-400 bg-clip-text text-transparent">
 								{" "}
 								Minipágina
@@ -153,35 +162,41 @@ function App() {
 			</footer>
 
 			{/* Efeitos de fundo */}
-			<div className="absolute inset-0 pointer-events-none overflow-hidden">
-				{/* Partículas flutuantes */}
-				{[...Array(8)].map((_, i) => (
-					<motion.div
-						key={i}
-						className="absolute w-2 h-2 bg-purple-400/30 rounded-full"
-						initial={{
-							x:
-								Math.random() *
-								(typeof window !== "undefined" ? window.innerWidth : 1000),
-							y:
-								Math.random() *
-								(typeof window !== "undefined" ? window.innerHeight : 1000),
-							scale: 0,
-						}}
-						animate={{
-							y: [null, -30, 30, -15, 0],
-							scale: [0, 1, 0.5, 1.2, 0.8],
-							opacity: [0, 0.6, 0.3, 0.8, 0.2],
-						}}
-						transition={{
-							duration: 6 + Math.random() * 4,
-							repeat: Infinity,
-							delay: Math.random() * 3,
-						}}
-					/>
-				))}
+			<div className="absolute inset-0 overflow-hidden pointer-events-none">
+				{[...Array(30)].map((_, i) => {
+					const size = Math.floor(Math.random() * 6) + 4; // tamanho 4px a 10px
+					const startX = Math.random() * window.innerWidth;
+					const delay = Math.random() * 5;
+					const duration = 6 + Math.random() * 4;
+					const color = "#932ae9";
+
+					return (
+						<motion.div
+							key={i}
+							className="absolute rounded-sm"
+							style={{
+								width: size,
+								height: size,
+								left: startX,
+								backgroundColor: color,
+							}}
+							initial={{ y: -20, opacity: 0 }}
+							animate={{
+								y: [-20, window.innerHeight + 20],
+								rotate: [0, 360],
+								opacity: [0, 1, 1, 0],
+							}}
+							transition={{
+								duration,
+								delay,
+								repeat: Infinity,
+								ease: "linear",
+							}}
+						/>
+					);
+				})}
 			</div>
-		</div>
+		</motion.div>
 	);
 
 	const Navigation = () => (
