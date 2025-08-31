@@ -187,7 +187,7 @@ const MessagePage = () => {
 
 	return (
 		<div
-			className="min-h-screen w-full flex flex-col relative overflow-hidden"
+			className="min-h-screen w-full flex flex-col relative overflow-hidden p-4 sm:p-8"
 			style={backgroundStyle}>
 			{/* Conteúdo principal */}
 			<div className="flex-1 flex flex-col items-center justify-center p-4 sm:p-8 text-center">
@@ -202,20 +202,12 @@ const MessagePage = () => {
 					{/* Adicionado w-full */}
 					{/* Imagem (Ícone) */}
 					<motion.div
-						className="w-full max-w-lg mx-auto" // Limita a largura máxima da imagem em telas grandes
+						className="w-full max-w-xs sm:max-w-md md:max-w-lg mx-auto" // Limita a largura máxima da imagem em telas grandes
 						initial={{ scale: 0 }}
 						animate={{ scale: 1 }}
 						transition={{ delay: 0.2, type: "spring", bounce: 0.6 }}>
 						{/* A mágica acontece aqui! */}
-						<div
-							className="
-                    w-full 
-                    h-40 md:h-48              {/* Altura responsiva: 40 no mobile, 48 em telas maiores */}
-                    bg-gray-700               {/* Fundo um pouco mais escuro para o placeholder */}
-                    rounded-2xl               {/* Bordas bem arredondadas */}
-                    overflow-hidden           {/* Essencial para cortar a imagem nas bordas */}
-                    shadow-lg                 {/* Sombra sutil para dar profundidade */}
-                ">
+						<div className="w-full h-36 sm:h-40 md:h-48 lg:h-56 bg-gray-700 rounded-2xl overflow-hidden shadow-lg">
 							<img
 								src={imageUrl}
 								className="w-full h-full object-cover" // object-cover garante que a imagem preencha o espaço sem distorcer
@@ -225,7 +217,7 @@ const MessagePage = () => {
 					</motion.div>
 					{/* Título */}
 					<motion.h1
-						className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6"
+						className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold mb-4 sm:mb-6"
 						style={{ color: pageMeta.primaryColor }}
 						initial={{ opacity: 0, y: 20 }}
 						animate={{ opacity: 1, y: 0 }}
@@ -234,7 +226,7 @@ const MessagePage = () => {
 					</motion.h1>
 					{/* Texto principal */}
 					<motion.div
-						className="text-xl md:text-2xl text-white/90 leading-relaxed max-w-3xl mx-auto"
+						className="text-sm sm:text-base md:text-lg text-white/90 leading-relaxed max-w-full sm:max-w-2xl md:max-w-3xl mx-auto"
 						initial={{ opacity: 0, y: 20 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ delay: 0.6 }}>
@@ -250,7 +242,7 @@ const MessagePage = () => {
 					</motion.div>
 					{/* Informações do autor */}
 					<motion.div
-						className="flex flex-col sm:flex-row items-center justify-center gap-4 text-white/70 text-lg mt-12"
+						className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-white/70 text-sm sm:text-base mt-8 sm:mt-12"
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 1 }}
 						transition={{ delay: 1 }}>

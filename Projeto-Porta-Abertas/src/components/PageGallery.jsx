@@ -87,13 +87,13 @@ const PageGallery = ({ pages, onViewPage }) => {
 				<Card className="overflow-hidden bg-gray-900 border-gray-700 hover:border-white transition-all duration-300 pr-2.5 pl-2.5">
 					{/* Preview da página */}
 					<div
-						className="w-[100%] h-32 relative flex items-center justify-center self-center rounded-md"
+						className="w-full h-32 sm:h-36 md:h-40 lg:h-44 relative flex items-center justify-center rounded-md"
 						style={backgroundStyle}>
 						<div className="text-center">
 							<div className="text-3xl mb-2">
 								<img
 									src={`https://api.dicebear.com/9.x/big-smile/svg?seed=${page.authorName}`}
-									className="w-16 h-16 rounded-full mx-auto"
+									className="w-12 h-12 sm:w-16 sm:h-16 rounded-full mx-auto"
 									alt="avatar"
 								/>
 							</div>
@@ -119,10 +119,10 @@ const PageGallery = ({ pages, onViewPage }) => {
 						<div className="space-y-3">
 							{/* Título e texto preview */}
 							<div>
-								<h3 className="font-semibold text-white text-lg truncate">
+								<h3 className="font-semibold text-white text-base sm:text-lg truncate">
 									{page.title}
 								</h3>
-								<p className="text-gray-400 text-sm line-clamp-2 mt-1">
+								<p className="text-gray-400 text-xs sm:text-sm line-clamp-2 mt-1">
 									{page.text}
 								</p>
 							</div>
@@ -145,7 +145,7 @@ const PageGallery = ({ pages, onViewPage }) => {
 							<div className="flex gap-2 flex-wrap">
 								<Badge
 									variant="outline"
-									className="text-xs border-purple-500/50 text-purple-300 flex items-center gap-1.5">
+									className="text-[10px] sm:text-xs border-purple-500/50 text-purple-300 flex items-center gap-1.5">
 									{pageType.icon}
 									{pageType.label}
 								</Badge>
@@ -196,10 +196,10 @@ const PageGallery = ({ pages, onViewPage }) => {
 			{/* Header com controles */}
 			<div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
 				<div>
-					<h2 className="text-3xl font-bold text-white mb-2">
+					<h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">
 						Galeria de Páginas
 					</h2>
-					<p className="text-gray-400">
+					<p className="text-gray-400 text-sm sm:text-base">
 						{pages.length} página{pages.length !== 1 ? "s" : ""} criada
 						{pages.length !== 1 ? "s" : ""}
 					</p>
@@ -247,7 +247,7 @@ const PageGallery = ({ pages, onViewPage }) => {
 				animate="visible"
 				className={
 					viewMode === "grid"
-						? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+						? "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
 						: "space-y-4"
 				}>
 				{sortedPages.map((page, index) => (

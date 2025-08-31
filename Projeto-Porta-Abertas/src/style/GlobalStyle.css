@@ -40,6 +40,12 @@
 	--color-sidebar-ring: var(--sidebar-ring);
 }
 
+html,
+body,
+#root {
+	height: 100%;
+}
+
 :root {
 	--radius: 0.625rem;
 	--background: oklch(0.145 0 0);
@@ -89,6 +95,7 @@
 
 	body {
 		@apply bg-background text-foreground;
+		min-height: 100vh;
 		font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
 			"Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
 			"Helvetica Neue", sans-serif;

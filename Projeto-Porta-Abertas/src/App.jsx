@@ -34,7 +34,7 @@ function App() {
 
 	const HomeView = () => (
 		<motion.div
-			className="absolute inset-0 min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 flex flex-col"
+			className="absolute inset-0 h-screen w-screen bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 flex flex-col"
 			animate={{
 				background: [
 					"linear-gradient(135deg, #34025c, #36204d)",
@@ -50,8 +50,8 @@ function App() {
 						initial={{ opacity: 0, y: -20 }}
 						animate={{ opacity: 1, y: 0 }}
 						className="flex items-center gap-3">
-						<div className="w-12 h-12 bg-purple-800 rounded-lg flex items-center justify-center">
-							<img src={Logo} alt="Logo" className="w-9 h-9" />
+						<div className="w-10 h-10 sm:w-12 sm:h-12 bg-purple-800 rounded-lg flex items-center justify-center">
+							<img src={Logo} alt="Logo" className="w-7 h-7 sm:w-9 sm:h-9" />
 						</div>
 						<div>
 							<h1 className="text-2xl font-bold text-white">Emakers Jr.</h1>
@@ -81,7 +81,7 @@ function App() {
 							initial={{ opacity: 0, y: 20 }}
 							animate={{ opacity: 1, y: 0 }}
 							transition={{ delay: 0.6 }}
-							className="font-['Montserrat'] text-7xl md:text-9xl font-extrabold text-white mb-6">
+							className="font-['Montserrat'] text-4xl sm:text-6xl md:text-7xl lg:text-9xl font-extrabold text-white mb-6">
 							Veja a sua
 							<span className="bg-gradient-to-r from-purple-400 to-orange-400 bg-clip-text text-transparent">
 								{" "}
@@ -94,7 +94,7 @@ function App() {
 							initial={{ opacity: 0, y: 20 }}
 							animate={{ opacity: 1, y: 0 }}
 							transition={{ delay: 0.8 }}
-							className="text-lg md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+							className="text-base sm:text-lg md:text-2xl text-gray-300 max-w-xl sm:max-w-2xl mx-auto leading-relaxed">
 							Dê vida às suas ideias e mostre sua criatividade no mundo digital.
 							Personalize cores, textos, animações e construa uma página única
 							que represente você, com o apoio da nossa equipe.
@@ -105,7 +105,7 @@ function App() {
 							initial={{ opacity: 0, y: 20 }}
 							animate={{ opacity: 1, y: 0 }}
 							transition={{ delay: 1 }}
-							className="flex flex-row items-center justify-center gap-8 text-center mt-12">
+							className="flex flex-row items-center justify-center gap-6 sm:gap-8 text-center mt-12">
 							<div className="flex items-center gap-3">
 								<div className="hidden sm:flex w-12 h-12 bg-purple-600/20 rounded-full flex items-center justify-center">
 									<Grid3X3 className="w-6 h-6 text-purple-400" />
@@ -150,7 +150,7 @@ function App() {
 			</main>
 
 			{/* Footer */}
-			<footer className="p-6 text-center">
+			<footer className="p-4 sm:p-6 text-center text-xs sm:text-sm">
 				<motion.div
 					initial={{ opacity: 0 }}
 					animate={{ opacity: 1 }}

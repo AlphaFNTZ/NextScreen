@@ -14,7 +14,7 @@ export const pageMeta = {
 	// Uma linha de diálogo ou descrição da cena
 	text: "O ontem é passado. O amanhã é um mistério, já o hoje é uma dádiva, por isso se chama presente.",
 	// Palavra-chave para o VÍDEO de fundo
-	videoQuery: "japão montains temple sunset",
+	videoQuery: "japan montains temple",
 	// Nome do "diretor" (o usuário)
 	directorName: "Roberta",
 	// Gênero do filme para dar um toque extra
@@ -114,7 +114,7 @@ const MovieScenePage = () => {
 
 	return (
 		<div
-			className="min-h-screen w-full relative flex items-center justify-center p-4 overflow-hidden"
+			className="min-h-screen w-full relative flex items-center justify-center p-4 sm:p-6 md:p-8 overflow-hidden"
 			style={{ backgroundColor: pageMeta.backgroundColor }}>
 			{/* Vídeo de Fundo */}
 			{videoUrl && (
@@ -124,38 +124,41 @@ const MovieScenePage = () => {
 					src={videoUrl}
 					autoPlay
 					loop
-					muted // Essencial para o autoplay funcionar na maioria dos navegadores
+					muted
+					playsInline
+					disablePictureInPicture
+					controls={false}
 				/>
 			)}
 
 			{/* Overlay escuro para garantir a legibilidade */}
-			<div className="absolute top-0 left-0 w-full h-full bg-black/50 z-10" />
+			<div className="absolute top-0 left-0 w-full h-full bg-black/60 sm:bg-black/50 z-10" />
 
 			{/* Conteúdo da Cena */}
 			<motion.div
 				initial={{ opacity: 0 }}
 				animate={{ opacity: 1 }}
 				transition={{ duration: 1.5 }}
-				className="relative z-20 w-full max-w-3xl text-center space-y-6 text-white">
-				<div className="flex items-center justify-center gap-3 text-sm uppercase tracking-widest text-white/70">
-					<Film className="w-4 h-4" />
+				className="relative z-20 w-full max-w-xl sm:max-w-2xl md:max-w-3xl text-center space-y-4 sm:space-y-6 text-white px-2">
+				<div className="flex items-center justify-center gap-2 sm:gap-3 text-xs sm:text-sm uppercase tracking-widest text-white/70">
+					<Film className="w-3 h-3 sm:w-4 sm:h-4" />
 					<span>{pageMeta.genre}</span>
 				</div>
 
 				<h1
-					className="text-4xl md:text-6xl font-serif font-bold"
+					className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-serif font-bold"
 					style={{ color: pageMeta.primaryColor }}>
 					{pageMeta.title}
 				</h1>
 
-				<p className="text-lg md:text-xl text-white/90 leading-relaxed max-w-2xl mx-auto">
+				<p className="text-sm sm:text-base md:text-lg lg:text-xl text-white/90 leading-relaxed max-w-full sm:max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto px-2">
 					"{pageMeta.text}"
 				</p>
 
-				<div className="border-t border-white/20 w-1/4 mx-auto my-4" />
+				<div className="border-t border-white/20 w-1/2 sm:w-1/4 mx-auto my-2 sm:my-4" />
 
-				<div className="flex items-center justify-center gap-2 text-md text-white/80">
-					<Clapperboard className="w-5 h-5" />
+				<div className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm text-white/80">
+					<Clapperboard className="w-4 h-4 sm:w-5 sm:h-5" />
 					<span>
 						Dirigido por <strong>{pageMeta.directorName}</strong>
 					</span>
