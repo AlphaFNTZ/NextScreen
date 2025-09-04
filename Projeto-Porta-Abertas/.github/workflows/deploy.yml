@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main # Sempre que houver push na branch main
+      - main
 
 jobs:
   build-and-deploy:
@@ -11,21 +11,26 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+        with:
+          submodules: false # não tenta atualizar submódulos
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "18" # ou a versão que você usa
+          node-version: "18"
 
       - name: Install dependencies
         run: npm install
 
       - name: Build project
-        run: npm run build # ou outro comando de build do seu projeto
+        run: |
+          npm run build    # ou npm run export no Next.js
+          # Para Vite, a build normalmente vai para 'dist'
+          # Para Next.js export, a build vai para 'out'
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v5
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build # ou a pasta que contém os arquivos finais para o GitHub Pages
+          publish_dir: ./dist # ou ./out se for Next.js
