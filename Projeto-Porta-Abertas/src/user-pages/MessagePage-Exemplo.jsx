@@ -14,7 +14,7 @@ export const pageMeta = {
 	// Defina o seu primeiro nome
 	authorName: "Julio Cesar",
 	// Palavras-chave em inglês para imagens do tema
-	icon: "forest",
+	imageQuery: "forest",
 	// Defina o texto da pagina
 	text: "A natureza fala em silêncio. O farfalhar das folhas, o canto dos pássaros e o fluxo dos rios nos lembram de um equilíbrio mais antigo que a própria humanidade. Conectar-se à natureza é reconectar-se com a nossa essência.",
 	// Defina a animação desejada
