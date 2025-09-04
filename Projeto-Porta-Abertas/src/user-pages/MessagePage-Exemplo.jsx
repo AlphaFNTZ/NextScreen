@@ -14,7 +14,7 @@ export const pageMeta = {
 	// Defina o seu primeiro nome
 	authorName: "Julio Cesar",
 	// Defina o ícone da página
-	icon: "brasil",
+	imageQuery: "brasil",
 	// Defina o texto da pagina
 	text: "A capoeira é uma arte marcial brasileira, originada na cidade de Rio de Janeiro no tempo da escravidão, no seculo XXI, com o objetivo de combater o medo de ser atacado, usado como uma forma de expressão artística.",
 	// Defina a animação desejada [fade-in; slide-up; bounce; typewriter]
@@ -44,7 +44,7 @@ const MessagePage = () => {
 	useEffect(() => {
 		const loadImage = async () => {
 			// 1. Crie uma chave única para o cache baseada no tema.
-			const cacheKey = `unsplash_image_${pageMeta.icon}`;
+			const cacheKey = `unsplash_image_${pageMeta.imageQuery}`;
 
 			try {
 				// 2. Verifique se a imagem já está no localStorage.
@@ -61,7 +61,7 @@ const MessagePage = () => {
 				// 4. CACHE MISS: Se não encontrou, continue para buscar na API.
 				console.log("Cache miss. Buscando imagem na API...");
 				const response = await fetch(
-					`https://api.unsplash.com/photos/random?query=${pageMeta.icon}&client_id=hrW66a42K_qj8Cq7R3CaKrw5mesHDINV5pGHxkvyAkk`
+					`https://api.unsplash.com/photos/random?query=${pageMeta.imageQuery}&client_id=hrW66a42K_qj8Cq7R3CaKrw5mesHDINV5pGHxkvyAkk`
 				);
 
 				if (!response.ok) {
@@ -91,7 +91,7 @@ const MessagePage = () => {
 		};
 
 		loadImage();
-	}, [pageMeta.icon]);
+	}, [pageMeta.imageQuery]);
 
 	useEffect(() => {
 		if (!isLoading) {
@@ -211,7 +211,7 @@ const MessagePage = () => {
 							<img
 								src={imageUrl}
 								className="w-full h-full object-cover" // object-cover garante que a imagem preencha o espaço sem distorcer
-								alt={`Imagem sobre ${pageMeta.icon}`}
+								alt={`Imagem sobre ${pageMeta.imageQuery}`}
 							/>
 						</div>
 					</motion.div>

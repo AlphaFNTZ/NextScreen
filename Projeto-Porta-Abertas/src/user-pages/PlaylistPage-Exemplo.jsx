@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Clapperboard, User, Film } from "lucide-react";
+import { Clapperboard, Film } from "lucide-react";
 //
 //
 //
