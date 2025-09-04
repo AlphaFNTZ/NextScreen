@@ -10,24 +10,23 @@ import { User, Clock } from "lucide-react";
 //
 export const pageMeta = {
 	// Defina o titulo da pagina
-	title: "Sussurros da Natureza",
+	title: "A verdadeira Capoeira",
 	// Defina o seu primeiro nome
 	authorName: "Julio Cesar",
-	// Palavras-chave em inglês para imagens do tema
-	icon: "forest, trees, river, nature, birds",
+	// Defina o ícone da página
+	icon: "brasil",
 	// Defina o texto da pagina
-	text: "A natureza fala em silêncio. O farfalhar das folhas, o canto dos pássaros e o fluxo dos rios nos lembram de um equilíbrio mais antigo que a própria humanidade. Conectar-se à natureza é reconectar-se com a nossa essência.",
-	// Defina a animação desejada
+	text: "A capoeira é uma arte marcial brasileira, originada na cidade de Rio de Janeiro no tempo da escravidão, no seculo XXI, com o objetivo de combater o medo de ser atacado, usado como uma forma de expressão artística.",
+	// Defina a animação desejada [fade-in; slide-up; bounce; typewriter]
 	animation: "slide-up",
-	// Defina o tipo de fundo da pagina
-	backgroundType: "gradient",
-	// Defina o valor do fundo da página
-	backgroundValue:
-		"linear-gradient(135deg, #355c7d 0%, #6c5b7b 50%, #c06c84 100%)",
-	// Defina a cor do titulo
-	primaryColor: "#ffffff",
+	// Defina o tipo de fundo da pagina [gradient; color]
+	backgroundType: "color",
+	// Defina o valor do fundo da página [#3f215d; linear-gradient(135deg, #667eea 0%, #764ba2 100%)]
+	backgroundValue: "#001443",
+	// Defina a cor do titulo [#ffffff]
+	primaryColor: "#0022ff",
 	// Defina a horas em que foi criada a sua pagina
-	createdAt: "10:20",
+	createdAt: "18:40",
 	template: "MessagePage",
 };
 //
@@ -45,7 +44,7 @@ const MessagePage = () => {
 	useEffect(() => {
 		const loadImage = async () => {
 			// 1. Crie uma chave única para o cache baseada no tema.
-			const cacheKey = `unsplash_image_${pageMeta.imageQuery}`;
+			const cacheKey = `unsplash_image_${pageMeta.icon}`;
 
 			try {
 				// 2. Verifique se a imagem já está no localStorage.
@@ -62,7 +61,7 @@ const MessagePage = () => {
 				// 4. CACHE MISS: Se não encontrou, continue para buscar na API.
 				console.log("Cache miss. Buscando imagem na API...");
 				const response = await fetch(
-					`https://api.unsplash.com/photos/random?query=${pageMeta.imageQuery}&client_id=hrW66a42K_qj8Cq7R3CaKrw5mesHDINV5pGHxkvyAkk`
+					`https://api.unsplash.com/photos/random?query=${pageMeta.icon}&client_id=hrW66a42K_qj8Cq7R3CaKrw5mesHDINV5pGHxkvyAkk`
 				);
 
 				if (!response.ok) {
@@ -92,7 +91,7 @@ const MessagePage = () => {
 		};
 
 		loadImage();
-	}, [pageMeta.imageQuery]);
+	}, [pageMeta.icon]);
 
 	useEffect(() => {
 		if (!isLoading) {
@@ -212,7 +211,7 @@ const MessagePage = () => {
 							<img
 								src={imageUrl}
 								className="w-full h-full object-cover" // object-cover garante que a imagem preencha o espaço sem distorcer
-								alt={`Imagem sobre ${pageMeta.imageQuery}`}
+								alt={`Imagem sobre ${pageMeta.icon}`}
 							/>
 						</div>
 					</motion.div>
