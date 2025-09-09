@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { User, Clock } from "lucide-react";
 //
@@ -13,8 +13,8 @@ export const pageMeta = {
 	title: "Sussurros da Natureza",
 	// Defina o seu primeiro nome
 	authorName: "Julio Cesar",
-	// Palavras-chave em inglês para imagens do tema
-	imageQuery: "forest",
+	// Defina o ÍCONE (pode ser um emoji ou um componente de ícone)
+	icon: "🍀",
 	// Defina o texto da pagina
 	text: "A natureza fala em silêncio. O farfalhar das folhas, o canto dos pássaros e o fluxo dos rios nos lembram de um equilíbrio mais antigo que a própria humanidade. Conectar-se à natureza é reconectar-se com a nossa essência.",
 	// Defina a animação desejada
@@ -39,73 +39,14 @@ export const pageMeta = {
 //
 const MessagePage = () => {
 	const [showContent, setShowContent] = useState(false);
-	const [imageUrl, setImageUrl] = useState("");
-	const [isLoading, setIsLoading] = useState(true);
 
+	// Efeito para mostrar o conteúdo após um pequeno atraso
 	useEffect(() => {
-		const loadImage = async () => {
-			// 1. Crie uma chave única para o cache baseada no tema.
-			const cacheKey = `unsplash_image_${pageMeta.imageQuery}`;
-
-			try {
-				// 2. Verifique se a imagem já está no localStorage.
-				const cachedImageUrl = localStorage.getItem(cacheKey);
-
-				if (cachedImageUrl) {
-					// 3. CACHE HIT: Se encontrou, use a imagem do cache e pronto!
-					console.log("Imagem carregada do cache!");
-					setImageUrl(cachedImageUrl);
-					setIsLoading(false);
-					return; // Encerra a função aqui, sem chamar a API.
-				}
-
-				// 4. CACHE MISS: Se não encontrou, continue para buscar na API.
-				console.log("Cache miss. Buscando imagem na API...");
-				const response = await fetch(
-					`https://api.unsplash.com/photos/random?query=${pageMeta.imageQuery}&client_id=hrW66a42K_qj8Cq7R3CaKrw5mesHDINV5pGHxkvyAkk`
-				);
-
-				if (!response.ok) {
-					throw new Error(`Erro na API: ${response.statusText}`);
-				}
-
-				const data = await response.json();
-
-				if (data && data.urls && data.urls.regular) {
-					const newImageUrl = data.urls.regular;
-					setImageUrl(newImageUrl);
-
-					// 5. SALVAR NO CACHE: Guarde a nova URL no localStorage para o futuro.
-					localStorage.setItem(cacheKey, newImageUrl);
-					console.log("Imagem salva no cache.");
-				} else {
-					console.warn("API não retornou uma imagem válida.");
-					// Aqui você pode definir uma imagem de fallback se quiser
-				}
-			} catch (error) {
-				console.error("Falha ao carregar imagem:", error);
-				// Lógica de fallback em caso de erro de rede
-			} finally {
-				// Garante que o loading termine, independentemente do resultado.
-				setIsLoading(false);
-			}
-		};
-
-		loadImage();
-	}, [pageMeta.imageQuery]);
-
-	useEffect(() => {
-		if (!isLoading) {
-			const timer = setTimeout(() => {
-				setShowContent(true);
-			}, 300);
-			return () => clearTimeout(timer);
-		}
-	}, [isLoading]);
-
-	if (isLoading) {
-		return <div>Carregando imagem...</div>;
-	}
+		const timer = setTimeout(() => {
+			setShowContent(true);
+		}, 300); // Um pequeno delay para a animação iniciar
+		return () => clearTimeout(timer);
+	}, []);
 
 	const getAnimationVariants = () => {
 		switch (pageMeta.animation) {
@@ -145,15 +86,14 @@ const MessagePage = () => {
 		}
 	};
 
-	const TypewriterText = ({ text, delay = 0, speed = 50 }) => {
+	const TypewriterText = ({ text, speed = 50 }) => {
 		const [displayText, setDisplayText] = useState("");
 		const [index, setIndex] = useState(0);
 		const [showCursor, setShowCursor] = useState(true);
 
 		useEffect(() => {
-			if (!showContent) return; // showContent do seu componente pai
+			if (!showContent) return;
 			if (index >= text.length) {
-				// Ao terminar, some com o cursor depois de 500ms
 				const timer = setTimeout(() => setShowCursor(false), 500);
 				return () => clearTimeout(timer);
 			}
@@ -166,7 +106,6 @@ const MessagePage = () => {
 			return () => clearTimeout(timer);
 		}, [index, text, showContent, speed]);
 
-		// Animação do cursor usando Framer Motion
 		return (
 			<span>
 				{displayText}
@@ -192,28 +131,22 @@ const MessagePage = () => {
 			style={backgroundStyle}>
 			{/* Conteúdo principal */}
 			<div className="flex-1 flex flex-col items-center justify-center p-4 sm:p-8 text-center">
-				{" "}
-				{/* Ajuste no padding para mobile */}
 				<motion.div
 					variants={getAnimationVariants()}
 					initial="hidden"
 					animate={showContent ? "visible" : "hidden"}
 					className="max-w-4xl w-full mx-auto space-y-8">
-					{" "}
-					{/* Adicionado w-full */}
-					{/* Imagem (Ícone) */}
+					{/* Ícone */}
 					<motion.div
-						className="w-full max-w-xs sm:max-w-md md:max-w-lg mx-auto" // Limita a largura máxima da imagem em telas grandes
+						className="w-full max-w-xs sm:max-w-md md:max-w-lg mx-auto"
 						initial={{ scale: 0 }}
 						animate={{ scale: 1 }}
 						transition={{ delay: 0.2, type: "spring", bounce: 0.6 }}>
-						{/* A mágica acontece aqui! */}
-						<div className="w-full h-36 sm:h-40 md:h-48 lg:h-56 bg-gray-700 rounded-2xl overflow-hidden shadow-lg">
-							<img
-								src={imageUrl}
-								className="w-full h-full object-cover" // object-cover garante que a imagem preencha o espaço sem distorcer
-								alt={`Imagem sobre ${pageMeta.imageQuery}`}
-							/>
+						{/* Container do ícone */}
+						<div className="w-full h-36 sm:h-40 md:h-48 lg:h-56 rounded-2xl flex items-center justify-center">
+							<div className="text-white text-7xl sm:text-8xl md:text-9xl">
+								{pageMeta.icon}
+							</div>
 						</div>
 					</motion.div>
 					{/* Título */}
@@ -232,11 +165,7 @@ const MessagePage = () => {
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ delay: 0.6 }}>
 						{pageMeta.animation === "typewriter" ? (
-							<TypewriterText
-								text={pageMeta.text}
-								delay={pageMeta.title.length * 80 + 300}
-								speed={50}
-							/>
+							<TypewriterText text={pageMeta.text} speed={50} />
 						) : (
 							pageMeta.text
 						)}
@@ -260,17 +189,20 @@ const MessagePage = () => {
 				</motion.div>
 			</div>
 
-			{/* Efeitos visuais de fundo */}
+			{/* Efeitos visuais de fundo (opcional, mantido) */}
 			<div className="absolute inset-0 pointer-events-none">
-				{/* Partículas flutuantes */}
 				{[...Array(6)].map((_, i) => (
 					<motion.div
 						key={i}
 						className="absolute w-2 h-2 rounded-full opacity-30"
 						style={{ backgroundColor: pageMeta.primaryColor }}
 						initial={{
-							x: Math.random() * window.innerWidth,
-							y: Math.random() * window.innerHeight,
+							x:
+								Math.random() *
+								(typeof window !== "undefined" ? window.innerWidth : 0),
+							y:
+								Math.random() *
+								(typeof window !== "undefined" ? window.innerHeight : 0),
 							scale: 0,
 						}}
 						animate={{
